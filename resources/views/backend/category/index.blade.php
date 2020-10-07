@@ -46,6 +46,7 @@
                     <i class="fa fa-edit" ></i> Edit
                   </a>
 
+
                   <form method="POST" action="{{route('categories.destroy', $procat->id)}}">
                   @csrf
                   @method('DELETE')
@@ -53,6 +54,9 @@
                     <i class="fa fa-warning"></i> Delete
                     </button >
                   </form>
+                  <a class="btn btn-app" href="{{route('categories.image', $procat->id)}}">
+                    <i class="fa fa-edit" ></i> Add Image
+                  </a>
             </td>
 
 

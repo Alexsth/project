@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Category;
+use App\Models\categoryImage;
 use Illuminate\Http\Request;
 Use Illuminate\Support\Str;
 
@@ -48,6 +49,7 @@ class CategoryController extends Controller
             'meta_keywords'=>$request->meta_keywords,
             'slug'=> $slug
         ]);
+
         return redirect()->route('categories.index');
     }
 
@@ -94,6 +96,16 @@ class CategoryController extends Controller
             'slug'=> $slug
         ]);
         return redirect()->route('categories.index');
+    }
+    public function image(){
+        return view('backend.image.index');
+    }
+
+    public function storeImg(Request $request){
+        categoryImage::create([
+            'image'=>$request->image
+        ]);
+        return redirect()->route('categories.image');
     }
 
     /**
