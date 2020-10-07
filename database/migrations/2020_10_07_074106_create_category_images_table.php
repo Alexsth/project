@@ -17,7 +17,7 @@ class CreateCategoryImagesTable extends Migration
             $table->id();
             $table->text('image');
             $table->unsignedBigInteger('category_id');
-            $table->foreign('category_id')->references('id')->on('category')->onDelete('cascade');
+            $table->foreign('category_id')->references('id')->on('categories')->onDelete('cascade');
             $table->timestamps();
         });
     }

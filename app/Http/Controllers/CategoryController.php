@@ -3,10 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Models\Category;
-use App\Models\categoryImage;
+use App\Models\CategoryImage;
 use Illuminate\Http\Request;
 Use Illuminate\Support\Str;
-
+use Illuminate\Support\Facades\Storage;
 class CategoryController extends Controller
 {
     /**
@@ -97,15 +97,31 @@ class CategoryController extends Controller
         ]);
         return redirect()->route('categories.index');
     }
-    public function image(){
-        return view('backend.image.index');
+    public function image($id){
+        $images = CategoryImage::where('category_id',$id)->get();
+        return view('backend.category.image',compact('images', 'id'));
     }
 
     public function storeImg(Request $request){
+        // dd($request->all());
+        $image = time().'.'.$request->img->extension();
+        $request->img->move(public_path('images'), $image);
+
         categoryImage::create([
-            'image'=>$request->image
+            'category_id'=> $request->catId,
+            'image'=>$image
         ]);
-        return redirect()->route('categories.image');
+        return redirect()->route('categories.image',$request->catId);
+    }
+
+    public function destroyImg($id)
+    {
+        $catImg = CategoryImage::findOrFail($id);
+        $catImg->delete();
+        if(\File::exists(public_path('images/'.$catImg->image))){
+            \File::delete(public_path('images/'.$catImg->image));
+        }
+        return redirect()-> route('categories.image',$catImg->category_id);
     }
 
     /**
