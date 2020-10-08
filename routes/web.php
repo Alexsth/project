@@ -25,5 +25,9 @@ Route::get('/dashboard', [App\Http\Controllers\backendController::class, 'index'
 Route::resource('/dashboard/categories', CategoryController::class);
 Route::get('/dashboard/categories/addImage/{id}', [App\Http\Controllers\CategoryController::class, 'image'])->name('categories.image');
 Route::post('/dashboard/categories/addImage', [App\Http\Controllers\CategoryController::class, 'storeImg'])->name('categories.storeImg');
-Route::delete('/dashboard/categories/destroyImage/{id}', [App\Http\Controllers\CategoryController::class, 'destroyImg'])->name('categories.destroyImg');
+Route::delete('/dashboard/categories/deleteImage/{id}', [App\Http\Controllers\CategoryController::class, 'destroyImg'])->name('categories.destroyImg');
 Route::resource('/dashboard/products', ProductController::class);
+Route::get('/dashboard/products/addImage/{id}', [App\Http\Controllers\ProductController::class, 'addImage'])->name('products.image');
+Route::post('/dashboard/products/addImage', [App\Http\Controllers\ProductController::class, 'storeImg'])->name('products.storeImg');
+Route::delete('/dashboard/products/deleteImage/{id}', [App\Http\Controllers\ProductController::class, 'deleteImg'])->name('products.deleteImg');
+

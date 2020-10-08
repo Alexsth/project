@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Category;
 use App\Models\Product;
+use App\Models\ProductImage;
 use App\Models\ProductCategory;
 use Illuminate\Http\Request;
 Use Illuminate\Support\Str;
@@ -118,9 +119,32 @@ class ProductController extends Controller
 
     }
 
+    public function addImage($id){
+        $images = ProductImage::where('product_id',$id)->get();
+        // dd($images);
+        return view('backend.product.image',compact('images', 'id'));
+    }
 
+    public function storeImg(Request $request){
+        // dd($request->all());
+        $image = time().'.'.$request->img->extension();
+        $request->img->move(public_path('images'), $image);
 
-
+        ProductImage::create([
+            'product_id'=> $request->catId,
+            'product_img'=>$image
+        ]);
+        return redirect()->route('products.image',$request->catId);
+    }
+    public function deleteImg($id)
+    {
+        $proImg = ProductImage::findOrFail($id);
+        $proImg->delete();
+        if(\File::exists(public_path('images/'.$proImg->product_img))){
+            \File::delete(public_path('images/'.$proImg->product_img));
+        }
+        return redirect()-> route('products.image',$proImg->product_id);
+    }
     /**
      * Remove the specified resource from storage.
      *

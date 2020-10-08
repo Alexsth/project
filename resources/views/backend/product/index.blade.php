@@ -54,6 +54,9 @@
                     <i class="fa fa-warning"></i> Delete
                     </button >
                   </form>
+                  <a class="btn btn-app" href="{{route('products.image', $procat->id)}}">
+                    <i class="fa fa-edit" ></i> Add Image
+                  </a>
 
             </td>
 
