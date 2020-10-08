@@ -90,7 +90,7 @@ class CategoryController extends Controller
             'title'=> $request->title,
             'description'=>$request->description,
             'parent'=>$request->parent,
-            'meta_title=>$request->meta_title',
+            'meta_title'=>$request->meta_title,
             'meta_description'=>$request->meta_description,
             'meta_keywords'=>$request->meta_keywords,
             'slug'=> $slug

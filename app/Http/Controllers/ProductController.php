@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Product;
 use Illuminate\Http\Request;
+Use Illuminate\Support\Str;
 
 class ProductController extends Controller
 {
@@ -14,7 +15,8 @@ class ProductController extends Controller
      */
     public function index()
     {
-        //
+        $product = Product::all();
+        return view('backend.product.index',compact('product'));
     }
 
     /**
@@ -24,7 +26,7 @@ class ProductController extends Controller
      */
     public function create()
     {
-        //
+        return view('backend.product.create');
     }
 
     /**
@@ -35,7 +37,20 @@ class ProductController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $slug= Str::slug($request->title, '-');
+        Product::create([
+            'title'=> $request->title,
+            'intro_desc'=> $request->intro_desc,
+            'description'=>$request->description,
+            'price'=> $request->price,
+            'discount'=> $request->discount,
+            'meta_title'=>$request->meta_title,
+            'meta_description'=>$request->meta_description,
+            'meta_keywords'=>$request->meta_keywords,
+            'slug'=> $slug
+        ]);
+
+        return redirect()->route('products.index');
     }
 
     /**
@@ -57,7 +72,8 @@ class ProductController extends Controller
      */
     public function edit(Product $product)
     {
-        //
+        $productCategory = Product::all();
+        return view('backend.product.update',compact('product','productCategory'));
     }
 
     /**
@@ -69,7 +85,21 @@ class ProductController extends Controller
      */
     public function update(Request $request, Product $product)
     {
-        //
+        $slug= Str::slug('$request->title', '-');
+        $product->update([
+            'title'=> $request->title,
+            'intro_desc'=> $request->intro_desc,
+            'description'=>$request->description,
+            'price'=> $request->price,
+            'discount'=> $request->discount,
+            'meta_title'=>$request->meta_title,
+            'meta_description'=>$request->meta_description,
+            'meta_keywords'=>$request->meta_keywords,
+            'slug'=> $slug
+        ]);
+
+        return redirect()->route('products.index');
+
     }
 
     /**
@@ -80,6 +110,7 @@ class ProductController extends Controller
      */
     public function destroy(Product $product)
     {
-        //
+        $product->delete();
+        return redirect()->route('products.index');
     }
 }
