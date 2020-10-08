@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Category;
 use App\Models\Product;
+use App\Models\ProductCategory;
 use Illuminate\Http\Request;
 Use Illuminate\Support\Str;
 
@@ -26,7 +28,8 @@ class ProductController extends Controller
      */
     public function create()
     {
-        return view('backend.product.create');
+        $productCategory = Category::all();
+        return view('backend.product.create',compact('productCategory'));
     }
 
     /**
@@ -38,7 +41,7 @@ class ProductController extends Controller
     public function store(Request $request)
     {
         $slug= Str::slug($request->title, '-');
-        Product::create([
+        $products = Product::create([
             'title'=> $request->title,
             'intro_desc'=> $request->intro_desc,
             'description'=>$request->description,
@@ -49,7 +52,12 @@ class ProductController extends Controller
             'meta_keywords'=>$request->meta_keywords,
             'slug'=> $slug
         ]);
-
+        foreach($request->categories as $cat){
+            ProductCategory::create([
+                'product_id'=>$products->id,
+                'category_id'=>$cat,
+            ]);
+        }
         return redirect()->route('products.index');
     }
 
@@ -72,8 +80,10 @@ class ProductController extends Controller
      */
     public function edit(Product $product)
     {
-        $productCategory = Product::all();
-        return view('backend.product.update',compact('product','productCategory'));
+        $productCategory = Category::all();
+        $selectedProductCategory = ProductCategory::where('product_id', $product->id)->pluck('category_id')->toArray();
+        // dd($selectedProductCategory->toArray());
+        return view('backend.product.update',compact('product','productCategory', 'selectedProductCategory'));
     }
 
     /**
@@ -97,10 +107,19 @@ class ProductController extends Controller
             'meta_keywords'=>$request->meta_keywords,
             'slug'=> $slug
         ]);
-
+        ProductCategory::where('product_id', $product->id)->delete();
+        foreach($request->categories as $cat){
+            ProductCategory::create([
+                'product_id'=>$product->id,
+                'category_id'=>$cat,
+            ]);
+        }
         return redirect()->route('products.index');
 
     }
+
+
+
 
     /**
      * Remove the specified resource from storage.

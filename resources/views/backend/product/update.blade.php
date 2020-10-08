@@ -1,5 +1,17 @@
 
 @extends('layouts.main')
+
+@section('custom_js')
+    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-beta.1/dist/css/select2.min.css" rel="stylesheet" />
+    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-beta.1/dist/js/select2.min.js"></script>
+
+    <script>
+        $(document).ready(function() {
+            $('.js-example-basic-multiple').select2();
+        });
+    </script>
+@endsection
+
 @section('content')
 <div class="col-md-12 col-sm-12 ">
     <div class="x_panel">
@@ -27,6 +39,19 @@
       <form id="demo-form2" data-parsley-validate="" class="form-horizontal form-label-left" novalidate="" method="POST" action="{{route('products.update',$product->id)}}">
         @csrf
         @method('PUT')
+
+        <div class="item form-group">
+            <label class="col-form-label col-md-3 col-sm-3 label-align" for="first-name">Product Category<span class="required">*</span>
+            </label>
+            <div class="col-md-6 col-sm-6 ">
+
+            <select class="form-control js-example-basic-multiple" name="categories[]" multiple="multiple" >
+                @foreach ($productCategory as $procat)
+                <option value="{{$procat->id}}" @if (in_array($procat->id, $selectedProductCategory)) selected @endif >{{$procat->title}}</option>
+                @endforeach
+            </select>
+            </div>
+          </div>
 
         <div class="item form-group">
             <label class="col-form-label col-md-3 col-sm-3 label-align" >Title
