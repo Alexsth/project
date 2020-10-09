@@ -8,6 +8,11 @@ use App\Models\ProductImage;
 use App\Models\ProductCategory;
 use Illuminate\Http\Request;
 Use Illuminate\Support\Str;
+use Barryvdh\DomPDF\Facade as PDF;
+// use Illuminate\Support\Facades\Storage;
+use App\Exports\ProductExport;
+use Maatwebsite\Excel\Facades\Excel;
+
 
 class ProductController extends Controller
 {
@@ -119,6 +124,19 @@ class ProductController extends Controller
 
     }
 
+    public function excelExport()
+    {
+        return Excel::download(new ProductExport, 'product.xlsx');
+
+    }
+
+    public function PDFExport(){
+        // $product = Product::all();
+        // $pdf = PDF::loadview('backend.product.index',compact('product'));
+        // return $pdf->download('product.pdf');
+        return Excel::download(new ProductExport, 'product.pdf');
+    }
+
     public function addImage($id){
         $images = ProductImage::where('product_id',$id)->get();
         // dd($images);
@@ -131,7 +149,7 @@ class ProductController extends Controller
         $request->img->move(public_path('images'), $image);
 
         ProductImage::create([
-            'product_id'=> $request->catId,
+            'product_id'=> $request->proId,
             'product_img'=>$image
         ]);
         return redirect()->route('products.image',$request->catId);
@@ -145,6 +163,8 @@ class ProductController extends Controller
         }
         return redirect()-> route('products.image',$proImg->product_id);
     }
+
+
     /**
      * Remove the specified resource from storage.
      *

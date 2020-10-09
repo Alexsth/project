@@ -5,8 +5,8 @@
         <li><a><i class="fa fa-home"></i> Products <span class="fa fa-chevron-down"></span></a>
           <ul class="nav child_menu">
             <li><a href="{{route('categories.index')}}">Product Category</a></li>
-            {{-- <li><a href="{{route('product.index')}}">Products</a></li>
-            <li><a href="{{route('productimage.index')}}">Product Image</a></li> --}}
+            <li><a href="{{route('products.index')}}">Products</a></li>
+            {{-- <li><a href="{{route('productimage.index')}}">Product Image</a></li> --}}
           </ul>
         </li>
 

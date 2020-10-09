@@ -33,7 +33,7 @@
                         <div class="col-md-6 col-sm-6 ">
                             <input type="file" name="img" id="image" accept="image/*" required="required"/>
                         </div>
-                        <input type="hidden" name="catId" value="{{$id}}">
+                        <input type="hidden" name="proId" value="{{$id}}">
                       </div>
                     </div>
 
