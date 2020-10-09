@@ -23,10 +23,10 @@
 
                 <a href="{{route('products.create')}}"
                 class="btn btn-success"> Add Products</a>
-                <a href="{{route('products.excelExport')}}"
+                <a href="{{route('products.excelExport').'?from='.Request::get('from').'&to='.Request::get('to')}}"
                 class="btn btn-success"> Export Excel</a>
 
-                <a href="{{route('products.PDFExport')}}"
+                <a href="{{route('products.PDFExport').'?from='.Request::get('from').'&to='.Request::get('to')}}"
                 class="btn btn-success"> Export PDF</a>
 
       {{-- <div id="datatable-fixed-header_wrapper" class="dataTables_wrapper container-fluid dt-bootstrap no-footer"><div class="row"><div class="col-sm-6"><div class="dataTables_length" id="datatable-fixed-header_length"><label>Show <select name="datatable-fixed-header_length" aria-controls="datatable-fixed-header" class="form-control input-sm"><option value="10">10</option><option value="25">25</option><option value="50">50</option><option value="100">100</option></select> entries</label></div></div><div class="col-sm-6"><div id="datatable-fixed-header_filter" class="dataTables_filter">
