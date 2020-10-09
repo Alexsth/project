@@ -9,7 +9,7 @@ use App\Models\ProductCategory;
 use Illuminate\Http\Request;
 Use Illuminate\Support\Str;
 use Barryvdh\DomPDF\Facade as PDF;
-// use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\Storage;
 use App\Exports\ProductExport;
 use Maatwebsite\Excel\Facades\Excel;
 
@@ -124,17 +124,28 @@ class ProductController extends Controller
 
     }
 
-    public function excelExport()
+    public function excelExport(Request $request)
     {
-        return Excel::download(new ProductExport, 'product.xlsx');
+        $from = isset($request->from) ? $request->from: '';
+        $to = isset($request->to) ? $request->to : '';
+        return Excel::download(new ProductExport($from,$to), 'product.xlsx');
 
     }
 
-    public function PDFExport(){
+    public function PDFExport(Request $request){
         // $product = Product::all();
         // $pdf = PDF::loadview('backend.product.index',compact('product'));
         // return $pdf->download('product.pdf');
-        return Excel::download(new ProductExport, 'product.pdf');
+        $from = isset($request->from) ? $request->from: '';
+        $to = isset($request->to) ? $request->to : '';
+        if($from != '' && $to != '')
+        $product = Product::whereBetween('price', [$from, $to])->get();
+        else
+        $product = Product::all();
+
+        $pdf = Excel::download(new ProductExport($from,$to), 'product.pdf');
+        Storage::put(('public/pdf/product.pdf'), $pdf);
+        return $pdf;
     }
 
     public function addImage($id){

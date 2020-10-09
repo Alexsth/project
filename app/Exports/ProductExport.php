@@ -15,13 +15,20 @@ class ProductExport implements FromCollection
     {
         return [
             'Id',
-            'Product',
-            'Status',
+            'Title',
+            'Intro_desc',
+            'Price'
 
         ];
     }
     public function collection()
     {
-        return Product::all();
+        if($this->from != '' && $this->to != '')
+        $product = Product::select('products.id', 'products.title', 'products.intro_desc', 'products.price')
+        ->whereBetween('products.price', [$this->from, $this->to])->get();
+        else
+        $product = Product::all()
+        ->select('products.id', 'products.title', 'products.intro_desc', 'products.price')->get();
+        return $product;
     }
 }

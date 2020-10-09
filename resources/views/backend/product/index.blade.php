@@ -29,12 +29,38 @@
                 <a href="{{route('products.PDFExport')}}"
                 class="btn btn-success"> Export PDF</a>
 
-      <div id="datatable-fixed-header_wrapper" class="dataTables_wrapper container-fluid dt-bootstrap no-footer"><div class="row"><div class="col-sm-6"><div class="dataTables_length" id="datatable-fixed-header_length"><label>Show <select name="datatable-fixed-header_length" aria-controls="datatable-fixed-header" class="form-control input-sm"><option value="10">10</option><option value="25">25</option><option value="50">50</option><option value="100">100</option></select> entries</label></div></div><div class="col-sm-6"><div id="datatable-fixed-header_filter" class="dataTables_filter"><label>Search:<input type="search" class="form-control input-sm" placeholder="" aria-controls="datatable-fixed-header"></label></div></div></div><div class="row"><div class="col-sm-12"><table id="datatable-fixed-header" class="table table-striped table-bordered dataTable no-footer" style="width:100%" role="grid" aria-describedby="datatable-fixed-header_info"><thead>
-          <tr role="row">
-            <th class="sorting_asc" tabindex="0" aria-controls="datatable-fixed-header" rowspan="1" colspan="1" aria-sort="ascending" aria-label="Name: activate to sort column descending" style="width: 146px;">Title</th>
-            <th class="sorting" tabindex="0" aria-controls="datatable-fixed-header" rowspan="1" colspan="1" aria-label="Position: activate to sort column ascending" style="width: 239px;">Price</th>
-            <th class="sorting" tabindex="0" aria-controls="datatable-fixed-header" rowspan="1" colspan="1" aria-label="Position: activate to sort column ascending" style="width: 239px;">Intro desc</th>
-          </tr>
+      {{-- <div id="datatable-fixed-header_wrapper" class="dataTables_wrapper container-fluid dt-bootstrap no-footer"><div class="row"><div class="col-sm-6"><div class="dataTables_length" id="datatable-fixed-header_length"><label>Show <select name="datatable-fixed-header_length" aria-controls="datatable-fixed-header" class="form-control input-sm"><option value="10">10</option><option value="25">25</option><option value="50">50</option><option value="100">100</option></select> entries</label></div></div><div class="col-sm-6"><div id="datatable-fixed-header_filter" class="dataTables_filter">
+          <label>Search:<input type="search" class="form-control input-sm" placeholder="" aria-controls="datatable-fixed-header">
+        </label>
+    </div>
+</div>
+</div> --}}
+        <div class="row">
+              <div class="col-sm-12">
+                <table id="datatable-fixed-header" class="table table-striped table-bordered dataTable no-footer" style="width:100%" role="grid" aria-describedby="datatable-fixed-header_info">
+                <thead>
+                    <tr role="row">
+                        <form method="get" action="" class="form">
+                            <div class="col-md-4">
+                            <label>From Price
+                            <input type="text" name="from" value="{{Request::get('from')}}" class="form-control">
+
+                        </label>
+                        </div>
+                            <div class="col-md-4">
+                            <label>To Price
+                            <input type="text" name="to" value="{{Request::get('to')}}" class="form-control">
+                        </label>
+                            </div>
+
+                            <div class="col-md-4">
+                            <button class="btn btn-medium btn-success" type="submit">Submit </button>
+                            </div>
+                        </form>
+                        <th class="sorting_asc" tabindex="0" aria-controls="datatable-fixed-header" rowspan="1" colspan="1" aria-sort="ascending" aria-label="Name: activate to sort column descending" style="width: 146px;">Title</th>
+                        <th class="sorting" tabindex="0" aria-controls="datatable-fixed-header" rowspan="1" colspan="1" aria-label="Position: activate to sort column ascending" style="width: 239px;">Price</th>
+                        <th class="sorting" tabindex="0" aria-controls="datatable-fixed-header" rowspan="1" colspan="1" aria-label="Position: activate to sort column ascending" style="width: 239px;">Intro desc</th>
+                    </tr>
         </thead>
 
 
