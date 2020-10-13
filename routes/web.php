@@ -14,13 +14,13 @@ use App\Http\Controllers\ProductController;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+// Route::get('/', function () {
+//     return view('welcome');
+// });
 
 Auth::routes();
 
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+// Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 Route::get('/dashboard', [App\Http\Controllers\backendController::class, 'index'])->name('dashboard');
 Route::resource('/dashboard/categories', CategoryController::class);
 Route::get('/dashboard/categories/addImage/{id}', [App\Http\Controllers\CategoryController::class, 'image'])->name('categories.image');
@@ -32,3 +32,7 @@ Route::delete('/dashboard/products/deleteImage/{id}', [App\Http\Controllers\Prod
 Route::get('/dashboard/products/excelExport', [App\Http\Controllers\ProductController::class, 'excelExport'])->name('products.excelExport');
 Route::get('/dashboard/products/pdfExport', [App\Http\Controllers\ProductController::class, 'PDFExport'])->name('products.PDFExport');
 Route::resource('/dashboard/products', ProductController::class);
+
+//frontend
+Route::redirect('/home', '/');
+Route::get('/{any}',[App\Http\Controllers\FrontendController::class, 'index'])->where('any', '.*');

@@ -53,12 +53,15 @@ class ProductController extends Controller
     public function store(Request $request)
     {
         $slug= Str::slug($request->title, '-');
+        $feature_image = time().'.'.$request->feature_image->extension();
+        $request->feature_image->move(public_path('images/product'), $feature_image);
         $products = Product::create([
             'title'=> $request->title,
             'intro_desc'=> $request->intro_desc,
             'description'=>$request->description,
             'price'=> $request->price,
             'discount'=> $request->discount,
+            'feature_image'=>$feature_image,
             'meta_title'=>$request->meta_title,
             'meta_description'=>$request->meta_description,
             'meta_keywords'=>$request->meta_keywords,
@@ -107,13 +110,25 @@ class ProductController extends Controller
      */
     public function update(Request $request, Product $product)
     {
-        $slug= Str::slug('$request->title', '-');
+        $slug= Str::slug($request->title, '-');
+        if(isset($request->feature_image))
+        {
+            if(\File::exists(public_path('images/product/'.$product->feature_image))){
+                \File::delete(public_path('images/product/'.$product->feature_image));
+            }
+            $feature_image = time().'.'.$request->feature_image->extension();
+            $request->feature_image->move(public_path('images/product'), $feature_image);
+        }
+        else
+            $feature_image = $product->feature_image;
+
         $product->update([
             'title'=> $request->title,
             'intro_desc'=> $request->intro_desc,
             'description'=>$request->description,
             'price'=> $request->price,
             'discount'=> $request->discount,
+            'feature_image'=>$feature_image,
             'meta_title'=>$request->meta_title,
             'meta_description'=>$request->meta_description,
             'meta_keywords'=>$request->meta_keywords,
@@ -157,20 +172,20 @@ class ProductController extends Controller
     public function storeImg(Request $request){
         // dd($request->all());
         $image = time().'.'.$request->img->extension();
-        $request->img->move(public_path('images'), $image);
+        $request->img->move(public_path('images/product'), $image);
 
         ProductImage::create([
             'product_id'=> $request->proId,
             'product_img'=>$image
         ]);
-        return redirect()->route('products.image',$request->catId);
+        return redirect()->route('products.image',$request->proId);
     }
     public function deleteImg($id)
     {
         $proImg = ProductImage::findOrFail($id);
         $proImg->delete();
-        if(\File::exists(public_path('images/'.$proImg->product_img))){
-            \File::delete(public_path('images/'.$proImg->product_img));
+        if(\File::exists(public_path('images/product/'.$proImg->product_img))){
+            \File::delete(public_path('images/product/'.$proImg->product_img));
         }
         return redirect()-> route('products.image',$proImg->product_id);
     }

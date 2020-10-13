@@ -36,7 +36,7 @@
       </div>
       <div class="x_content">
         <br>
-      <form id="demo-form2" data-parsley-validate="" class="form-horizontal form-label-left" novalidate="" method="POST" action="{{route('products.update',$product->id)}}">
+      <form id="demo-form2" data-parsley-validate="" class="form-horizontal form-label-left" novalidate="" method="POST"  enctype="multipart/form-data" action="{{route('products.update',$product->id)}}">
         @csrf
         @method('PUT')
 
@@ -45,7 +45,7 @@
             </label>
             <div class="col-md-6 col-sm-6 ">
 
-            <select class="form-control js-example-basic-multiple" name="categories[]" multiple="multiple" >
+            <select class="form-control js-example-basic-multiple" name="categories[]" multiple="multiple" required="required">
                 @foreach ($productCategory as $procat)
                 <option value="{{$procat->id}}" @if (in_array($procat->id, $selectedProductCategory)) selected @endif >{{$procat->title}}</option>
                 @endforeach
@@ -94,9 +94,20 @@
             <label class="col-form-label col-md-3 col-sm-3 label-align" >Discount
             </label>
             <div class="col-md-6 col-sm-6 ">
-              <input type="text" value="{{$product->discount}}" id="discount" name="discount" required="required" class="form-control ">
+              <input type="number" value="{{$product->discount}}" id="discount" name="discount" required="required" class="form-control ">
             </div>
           </div>
+
+          <div class="item form-group">
+            <label class="col-form-label col-md-3 col-sm-3 label-align" for="first-name">Add Feature Image</label>
+            <div class="col-md-6 col-sm-6 ">
+                <input type="file" id="feature_image" name="feature_image" accept="image/*" class="form-control ">
+            </div>
+        </div>
+        <div style="width: 150px; margin: 0 auto">
+            <img src="/images/product/{{$product->feature_image}}" alt="" style="width: 100%; padding:10px" >
+        </div>
+        <div style="clear: both"></div>
 
           <div class="item form-group">
             <label class="col-form-label col-md-3 col-sm-3 label-align" for="first-name">Meta Title <span class="required">*</span>

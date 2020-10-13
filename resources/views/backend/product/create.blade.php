@@ -37,7 +37,7 @@
       </div>
       <div class="x_content">
         <br>
-      <form id="demo-form2" data-parsley-validate="" class="form-horizontal form-label-left" novalidate="" method="POST" action="{{route('products.store')}}">
+      <form id="demo-form2" data-parsley-validate="" class="form-horizontal form-label-left" novalidate="" method="POST" enctype="multipart/form-data" action="{{route('products.store')}}">
         @csrf
 
 
@@ -46,7 +46,7 @@
             </label>
             <div class="col-md-6 col-sm-6 ">
 
-            <select class="form-control js-example-basic-multiple" name="categories[]" multiple="multiple" >
+            <select class="form-control js-example-basic-multiple" name="categories[]" multiple="multiple" required="required" >
                 @foreach ($productCategory as $procat)
                 <option value="{{$procat->id}}">{{$procat->title}}</option>
                 @endforeach
@@ -98,9 +98,17 @@
             <label class="col-form-label col-md-3 col-sm-3 label-align" >Discount
             </label>
             <div class="col-md-6 col-sm-6 ">
-              <input type="text" id="discount" name="discount" required="required" class="form-control ">
+              <input type="number" id="discount" name="discount" required="required" class="form-control ">
             </div>
           </div>
+
+          <div class="item form-group">
+            <label class="col-form-label col-md-3 col-sm-3 label-align" for="first-name">Add Feature Image <span class="required">*</span>
+            </label>
+            <div class="col-md-6 col-sm-6 ">
+                <input type="file" id="feature_image" name="feature_image" accept="image/*" required="required" class="form-control ">
+            </div>
+        </div>
 
           <div class="item form-group">
             <label class="col-form-label col-md-3 col-sm-3 label-align" for="first-name">Meta Title <span class="required">*</span>
@@ -125,6 +133,8 @@
                 <input type="text" id="meta_keywords" name="meta_keywords" required="required" class="form-control ">
             </div>
         </div>
+
+
 
 
           <div class="ln_solid"></div>

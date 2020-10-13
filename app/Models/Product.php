@@ -15,6 +15,7 @@ class Product extends Model
         'description',
         'price',
         'discount',
+        'feature_image',
         'meta_title',
         'meta_description',
         'meta_keywords'
