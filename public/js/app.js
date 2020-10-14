@@ -6711,7 +6711,7 @@ exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loa
 
 
 // module
-exports.push([module.i, "\n.prod_img[data-v-ea0da476] {\n  width: 100%;\n}\n.single_product_text .col-md-3[data-v-ea0da476] {\n  display: inline-block;\n}\n.modal-body img[data-v-ea0da476]{\n    width: 100%;\n}\n.feature_img[data-v-ea0da476] {\n    display: block;\n    margin: 0 auto;\n}\n", ""]);
+exports.push([module.i, "\n.prod_img[data-v-ea0da476] {\r\n  width: 100%;\n}\n.single_product_text .col-md-3[data-v-ea0da476] {\r\n  display: inline-block;\n}\n.modal-body img[data-v-ea0da476]{\r\n    width: 100%;\n}\n.feature_img[data-v-ea0da476] {\r\n    display: block;\r\n    margin: 0 auto;\n}\r\n", ""]);
 
 // exports
 
