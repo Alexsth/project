@@ -21,4 +21,8 @@ class Product extends Model
         'meta_keywords'
 
     ];
+
+    public function productImages(){
+        return $this->hasMany('App\Models\ProductImage','product_id', 'id');
+   }
 }

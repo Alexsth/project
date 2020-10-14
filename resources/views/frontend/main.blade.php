@@ -29,7 +29,7 @@
     <script type="application/javascript" src=" {{ asset('/frontend/js/jquery.sticky.js') }}"></script>
 
     <!-- contact js -->
-    <script type="application/javascript" src=" {{ asset('/frontend/js/contact.js') }}"></script>
+    {{-- <script type="application/javascript" src=" {{ asset('/frontend/js/contact.js') }}"></script> --}}
     <script type="application/javascript" src=" {{ asset('/frontend/js/jquery.form.js') }}"></script>
     <script type="application/javascript" src=" {{ asset('/frontend/js/jquery.validate.min.js') }}"></script>
     <script type="application/javascript" src=" {{ asset('/frontend/js/mail-script.js') }}"></script>

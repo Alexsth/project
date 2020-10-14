@@ -14,6 +14,8 @@ class ProductController extends Controller
     }
 
     public function productDetail($slug){
-        return Product::where('slug',$slug)->first();
+        $product = Product::where('products.slug',$slug)->first();
+        $images = $product->productImages;
+        return response()->json(['data' => $product], 200);
     }
 }
