@@ -17,7 +17,7 @@
                         <img :src="product.feature_image" alt="">
                     </div>
                     <div class="product-caption">
-                        <h3><a :href="'/product/'+ product.slug">{{ product.title }}</a></h3>
+                        <h3><a @click="gotoProductDetail(product.slug)">{{ product.title }}</a></h3>
                         <span>{{ product.price }} <i style="text-decoration: line-through">{{ parseInt(product.discount) + parseInt(product.price)}}</i></span>
                     </div>
                 </div>
@@ -171,6 +171,9 @@ export default {
             .catch((error)=>{
                 console.log(error);
             })
+        },
+        gotoProductDetail:function(slug){
+            this.$router.push({'path':'/product/'+ slug});
         }
     },
     mounted(){

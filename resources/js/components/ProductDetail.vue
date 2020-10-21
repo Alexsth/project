@@ -38,24 +38,20 @@
               <div class="product_count_area">
                 <p>Quantity</p>
                 <div class="product_count d-inline-block">
-                  <span class="product_count_item inumber-decrement">
-                    <i class="ti-minus"></i
-                  ></span>
+
                   <input
                     class="product_count_item input-number"
-                    type="text"
-                    value="1"
+                    type="number"
+                    v-model.count="count"
                     min="0"
                     max="10"
                   />
-                  <span class="product_count_item number-increment">
-                    <i class="ti-plus"></i
-                  ></span>
+
                 </div>
                 <p>{{ detail.price }}</p>
               </div>
               <div class="add_to_cart">
-                <a href="#" class="btn_3">add to cart</a>
+                <a class="btn_3" @click="addProductToCart(detail)">Add to cart</a>
               </div>
             </div>
           </div>
@@ -95,9 +91,10 @@ export default {
   data: function () {
     return {
       detail: [],
+      count: 1,
       slug: '',
       app_url: process.env.MIX_APP_URL,
-      modal_img: ''
+      modal_img: '',
     };
   },
   created() {
@@ -116,6 +113,10 @@ export default {
     },
     setModalImg:function(image){
         this.modal_img= image;
+    },
+    addProductToCart:function(detail){
+        detail['count'] = this.count;
+        this.$store.dispatch('addItem', detail);
     }
   },
   mounted() {

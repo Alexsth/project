@@ -5,6 +5,7 @@
  */
 import App from './components/App'
 import router from './router'
+import store from './store'
 
 require('./bootstrap');
 
@@ -21,6 +22,7 @@ Vue.component('footer-view', require('./components/layouts/Footer.vue').default)
 const app = new Vue({
     el: '#app',
     router,
+    store,
     template: '<App/>',
     components: {
         App

@@ -20,3 +20,5 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 Route::get('/products', [\App\Http\Controllers\API\ProductController::class, 'index']);
 Route::get('/product/{slug}', [\App\Http\Controllers\API\ProductController::class, 'productDetail']);
 
+Route::post('/checkout', [\App\Http\Controllers\API\CartController::class, 'addToCart']);
+

@@ -18,7 +18,9 @@ use App\Http\Controllers\ProductController;
 //     return view('welcome');
 // });
 
-Auth::routes();
+
+
+
 
 // Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 Route::get('/dashboard', [App\Http\Controllers\backendController::class, 'index'])->name('dashboard');
@@ -36,3 +38,11 @@ Route::resource('/dashboard/products', ProductController::class);
 //frontend
 Route::redirect('/home', '/');
 Route::get('/{any}',[App\Http\Controllers\FrontendController::class, 'index'])->where('any', '.*');
+Route::get('/user/{any}',[App\Http\Controllers\FrontendController::class, 'index'])->where('any', '.*');
+
+Route::get('/add-to-cart/{id}', [App\Http\Controllers\FrontendController::class, 'addToCart'])->name('website.addCart');
+Route::get('/shopping-cart', [App\Http\Controllers\FrontendController::class, 'getCart'])->name('website.cart');
+Route::get('/checkout-cart', [App\Http\Controllers\FrontendController::class, 'getCheckout'])->name('website.checkout');
+
+
+Auth::routes();

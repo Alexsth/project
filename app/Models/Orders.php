@@ -12,6 +12,12 @@ class Orders extends Model
         'users_id',
         'payment_method',
         'payment_status',
-        'delivery_status'
+        'delivery_status',
+        'shipping_fullname',
+        'shipping_address',
+        'shipping_city',
+        'shipping_state',
+        'shipping_zipcode',
+        'shipping_phone',
     ];
 }
